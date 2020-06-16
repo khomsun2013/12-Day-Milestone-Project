@@ -1,0 +1,7 @@
+Flask
+Jinja2
+MarkupSafe
+Werkzeug
+gunicorn
+itsdangerous
+wsgiref
