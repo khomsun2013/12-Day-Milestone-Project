@@ -1,10 +1,8 @@
+alpha_vantage
 requests
 flask
 jinja2
-markupSafe
-werkzeug
 gunicorn
-itsdangerous
 pandas
 bokeh
 dill
