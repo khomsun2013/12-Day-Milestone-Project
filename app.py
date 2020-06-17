@@ -96,7 +96,7 @@ def stock():
 
 @app.route('/iris')
 def iris():
-  output_file("template/bars.html")
+  output_file("templates/bars.html")
   fruits = ['Apples', 'Pears', 'Nectarines', 'Plums', 'Grapes', 'Strawberries']
   counts = [5, 3, 4, 2, 4, 6]
   plot = figure(x_range=fruits, plot_height=250, title="Fruit Counts",toolbar_location=None, tools="")
