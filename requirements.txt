@@ -6,4 +6,3 @@ gunicorn
 pandas
 bokeh
 dill
-json
