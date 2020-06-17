@@ -1,4 +1,4 @@
-alpha_vantage
+matplotlib
 requests
 flask
 jinja2
@@ -7,4 +7,4 @@ pandas
 bokeh
 dill
 pip
-simplejson
+json
