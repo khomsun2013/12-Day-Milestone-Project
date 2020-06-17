@@ -44,7 +44,7 @@ def stock():
   slow=[]
   sclose=[]
   svol=[] 
-  for i in range(1,8):
+  for i in range(1,30):
     d = datetime.timedelta(days = i)
     a = tod - d
     dt = str(a.date())
