@@ -69,7 +69,7 @@ def stock():
       slow.append(float(dic[dt]['3. low']))
       sclose.append(float(dic[dt]['4. close']))
       svol.append(float(dic[dt]['5. volume']))
-  
+  '''
   plt.figure()#figsize=(9, 3))
   plt.subplot(221)
   plt.plot(sdate,sclose)
@@ -81,8 +81,12 @@ def stock():
   plt.plot(sdate,sclose)
   plt.suptitle('Categorical Plotting')
   plt.savefig('/template/stock.png')
-  print('pass')
   return render_template('plot.html', url='/template/stock.png')
+  '''
+  print(sdate)
+  print(sopen)
+  print('pass')
+  return
   #plt.show()  
 
   '''
