@@ -5,5 +5,5 @@ jinja2
 gunicorn
 pandas
 bokeh
-pip
+dill
 json
