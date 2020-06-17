@@ -1,24 +1,10 @@
 from flask import Flask, render_template,redirect
-#from alpha_vantage.timeseries import TimeSeries
-#from pprint import pprint
-
-#import simplejson as json
 import requests
-#import urllib.request as urllib2
-import json
 import matplotlib.pyplot as plt
 import datetime
-import numpy as np
-
-'''
-req = urllib2.Request("http://api.open-notify.org/iss-now.json")
-response = urllib2.urlopen(req)
-
-obj = json.loads(response.read())
-
-print (obj['timestamp'])
-print (obj['iss_position']['latitude'], obj['iss_position']['longitude'])
-'''
+from bokeh.charts import Histogram
+from bokeh.embed import components
+import pandas as pd
 
 app = Flask(__name__)
 
@@ -108,6 +94,34 @@ def stock():
   # extracting data in json format 
   #data = r.json()
   #print(data['Time Series (Daily)'][0])
+
+iris_df = pd.read_csv("data/iris.data",names=["Sepal Length", "Sepal Width", "Petal Length", "Petal Width", "Species"])
+feature_names = iris_df.columns[0:-1].values.tolist()
+
+# Create the main plot
+def create_figure(current_feature_name, bins):
+  p = Histogram(iris_df, current_feature_name, title=current_feature_name, color='Species', bins=bins, legend='top_right', width=600, height=400)
+
+  # Set the x axis label
+  p.xaxis.axis_label = current_feature_name
+
+  # Set the y axis label
+  p.yaxis.axis_label = 'Count'
+  return p
+
+@app.route('/iris')
+def iris():
+  # Determine the selected feature
+  current_feature_name = request.args.get("feature_name")
+  if current_feature_name == None:
+    current_feature_name = "Sepal Length"
+
+  # Create the plot
+  plot = create_figure(current_feature_name, 10)
+    
+  # Embed plot into HTML via Flask Render
+  script, div = components(plot)
+  return render_template("iris.html", script=script, div=div,feature_names=feature_names,  current_feature_name=current_feature_name)
   
 if __name__ == '__main__':
   #app.run(port=33507)
