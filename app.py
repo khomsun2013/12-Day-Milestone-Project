@@ -2,7 +2,7 @@ from flask import Flask, render_template,redirect
 import requests
 import matplotlib.pyplot as plt
 import datetime
-from bokeh.io import output_file, show
+from bokeh.io import output_file, show, save
 from bokeh.plotting import figure
 from bokeh.models import ColumnDataSource
 
@@ -56,7 +56,7 @@ def stock():
       sclose.append(float(dic[dt]['4. close']))
       svol.append(float(dic[dt]['5. volume']))
   
-
+  '''
   output_file("templates/stock.html")
   source = ColumnDataSource(data=dict(
     x=[i+1 for i in range(len(sdate)+1)],
@@ -67,7 +67,14 @@ def stock():
   ))
   p = figure(plot_width=800, plot_height=600)
   p.vline_stack(['y1', 'y2', 'y3', 'y4'], x='x', source=source)
-  show(p)    
+  show(p)
+  '''
+  output_file("templates/stock.html", mode='inline')
+  plot = figure(title='Stock IBM Daily', x_axis_label='Date',
+                  y_axis_label='Price')
+  plot.line(sdate, sopen, line_width=3, line_color='green', legend='Open')
+  plot.line(sdate, shigh, line_width=3, line_color='orange', legend='High')
+  show(plot)    
   return render_template('stock.html')
 
   '''
