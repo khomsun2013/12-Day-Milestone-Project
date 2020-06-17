@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import datetime
 from bokeh.io import output_file, show
 from bokeh.plotting import figure
+from bokeh.models import ColumnDataSource
 
 app = Flask(__name__)
 
@@ -54,6 +55,22 @@ def stock():
       slow.append(float(dic[dt]['3. low']))
       sclose.append(float(dic[dt]['4. close']))
       svol.append(float(dic[dt]['5. volume']))
+  
+
+  output_file("templates/stock.html")
+  source = ColumnDataSource(data=dict(
+    x=[i+1 for i in range(len(sdate)+1)],
+    y1=sopen,
+    y2=shigh,
+    y3=slow,
+    y4=sclose,
+    y5=svol
+  ))
+  p = figure(plot_width=400, plot_height=400)
+  p.vline_stack(['y1', 'y2', 'y3', 'y4', 'y5'], x='x', source=source)
+  show(p)    
+  return render_template('stock.html')
+
   '''
   plt.figure()#figsize=(9, 3))
   plt.subplot(221)
