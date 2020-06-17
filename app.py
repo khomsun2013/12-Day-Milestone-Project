@@ -63,11 +63,10 @@ def stock():
     y1=sopen,
     y2=shigh,
     y3=slow,
-    y4=sclose,
-    y5=svol
+    y4=sclose
   ))
-  p = figure(plot_width=400, plot_height=400)
-  p.vline_stack(['y1', 'y2', 'y3', 'y4', 'y5'], x='x', source=source)
+  p = figure(plot_width=800, plot_height=600)
+  p.vline_stack(['y1', 'y2', 'y3', 'y4'], x='x', source=source)
   show(p)    
   return render_template('stock.html')
 
@@ -85,10 +84,6 @@ def stock():
   plt.savefig('/template/stock.png')
   return render_template('plot.html', url='/template/stock.png')
   '''
-  print(sdate)
-  print(sopen)
-  print('pass')
-  return
   #plt.show()  
 
   '''
@@ -125,4 +120,4 @@ def iris():
   
 if __name__ == '__main__':
   #app.run(port=33507)
-  app.run()
+  app.run(debug='True')
