@@ -51,9 +51,9 @@ def about():
 
 @app.route('/stock',methods=['GET','POST'])
 def stock():
-  sel=[0]*4
   try:
     if (request.method == 'POST'):
+      sel=[0]*4
       dst = request.form.to_dict()
       if('Open' in dst): sel[0]=1
       if('High' in dst): sel[1]=1 
@@ -109,12 +109,13 @@ def stock():
       p2.add_tools(hover)
       save(p2)
 
-      #callback = CustomJS(code="""
-      #alert('Hello'); 
-      #""")
-      #btn = Button(label="Home Page", callback=callback, name="1")
-      #layout = column(btn , p2)
-      #save(layout)
+      '''
+      btn = Button(label="Back", button_type="success")
+      btn.on_click(change_click)
+      curdoc().add_root(bt)
+      layout = column(p2,btn)
+      save(layout)
+      '''
       
       '''
       tod = datetime.datetime.now()
