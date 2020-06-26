@@ -1,28 +1,45 @@
 from flask import Flask,render_template,redirect,flash,url_for,request
 import requests
-import matplotlib.pyplot as plt
 import datetime
 import pandas as pd
 from bokeh.io import output_file, show, save
 from bokeh.plotting import figure
 from bokeh.models import ColumnDataSource, HoverTool
-from bokeh.palettes import Category10
+import sqlite3
 
 app = Flask(__name__)
+
+DATABASE = 'Companylist.db'
+
+conn = sqlite3.connect('Companylist.db')
+
+c=conn.cursor()
 
 @app.route('/')
 def index():
   return render_template('index.html')
 
+@app.route('/nasdaq')
+def nasdaq():
+  c.execute('SELECT symbol,name FROM NASDAQ')
+  tup=c.fetchall()
+  return render_template('nasdaq.html',data=tup)
+
+@app.route('/amex')
+def amex():
+  c.execute('SELECT symbol,name FROM AMEX')
+  tup=c.fetchall()
+  return render_template('amex.html',data=tup)
+
+@app.route('/nyse')
+def nyse():
+  c.execute('SELECT symbol,name FROM NYSE')
+  tup=c.fetchall()
+  return render_template('nyse.html',data=tup)
+
 @app.route('/about')
 def about():
   return render_template('about.html')
-
-#def get_symbol(symbol):
-#    symbol_list = requests.get("http://chstocksearch.herokuapp.com/api/{}".format(symbol)).json()
-#    for x in symbol_list:
-#        if x['symbol'] == symbol:
-#            return x['company']
 
 @app.route('/stock',methods=['GET','POST'])
 def stock():
@@ -38,13 +55,13 @@ def stock():
         return render_template('index.html')
       r = requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+dst['stocks']+'&outputsize=full&apikey=HGGFPH8DG45PWMAB')
       data = r.json()
-      print(r.status_code)
       dic = data['Time Series (Daily)']
       pdic=pd.DataFrame(dic)
       pdic=pdic.T
       x=range(1,31)
       pd30 = pdic.head(30)
-      output_file('templates/'+dst['stocks']+'.html',mode='inline')
+      output_file('templates/stocks.html',mode='inline')
+      #output_file('templates/'+dst['stocks']+'.html',mode='inline')
       p2 = figure(title='Stock Prices '+dst['stocks']+' Back in 30 Days', x_axis_label='Date',y_axis_label='Price')
       grpo=['Open']*30
       grph=['High']*30
@@ -80,7 +97,6 @@ def stock():
         if sel[i]==1:  
           p2.line(x='x',y='y',source=source,legend_label = grp_list[i],color = colors[i])
           p2.circle(x='x', y='y', fill_color=colors[i],line_color=colors[i], size=8,source=source,legend_label = grp_list[i])
-      #add tool tips
       hover = HoverTool(tooltips =[('Type: ','@group'),('Date: ','@date'),('Price: ','@y')])
       p2.add_tools(hover)
       save(p2)
@@ -135,8 +151,8 @@ def stock():
       plot.add_tools(HoverTool(show_arrow=False,tooltips=[("DATE", "@sdate"), ("OPEN", "@open"), ("CLOSE", "@close")]))
       save(plot)
       '''
-
-      return render_template(dst['stocks']+'.html')
+      #return render_template(dst['stocks']+'.html')
+      return render_template('stocks.html')
   except Exception as e:
       flash(e)
       return render_template('index.html')
