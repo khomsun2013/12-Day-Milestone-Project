@@ -3,8 +3,11 @@ import requests
 import datetime
 import pandas as pd
 from bokeh.io import output_file, show, save
+from bokeh.layouts import column
 from bokeh.plotting import figure
-from bokeh.models import ColumnDataSource, HoverTool
+from bokeh.models import ColumnDataSource, HoverTool, CustomJS
+from bokeh.models.widgets import Button
+
 import sqlite3
 
 app = Flask(__name__)
@@ -106,6 +109,13 @@ def stock():
       p2.add_tools(hover)
       save(p2)
 
+      #callback = CustomJS(code="""
+      #alert('Hello'); 
+      #""")
+      #btn = Button(label="Home Page", callback=callback, name="1")
+      #layout = column(btn , p2)
+      #save(layout)
+      
       '''
       tod = datetime.datetime.now()
       sdate=[]

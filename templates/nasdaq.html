@@ -8,6 +8,23 @@
     <title>12-Day Project</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+<script type = "text/javascript"> 
+var checkboxValues = JSON.parse(localStorage.getItem('checkboxValues')) || {},
+    $checkboxes = $("#checkbox-container :checkbox");
+
+$checkboxes.on("change", function(){
+  $checkboxes.each(function(){
+    checkboxValues[this.id] = this.checked;
+  });
+  
+  localStorage.setItem("checkboxValues", JSON.stringify(checkboxValues));
+});
+// On page load
+$.each(checkboxValues, function(key, value) {
+  $("#" + key).prop('checked', value);
+});
+</script>
+
     <!--script type = "text/javascript"> 
          var db = openDatabase('./Companylist.db', '1.0', 'TestDB', 2 * 1024 * 1024);
          var msg;
@@ -46,7 +63,26 @@
               <option value="IBM">IBM</option>
               <option value="GOOGL">Alphabet Inc. CI A</option-->
             </select>
-            <br>
+            <div id="checkbox-container">
+            <div>
+            <label for="Open">Open Price</label>
+            <input type="checkbox" name="Open" value="open">
+            </div>
+            <div>
+            <label for="High">High Price</label>
+            <input type="checkbox" name="High" value="high">
+            </div>
+            <div>
+            <label for="Low">Low Price</label>
+            <input type="checkbox" name="Low" value="low">
+            </div>
+            <div>
+            <label for="Close">Close Price</label>
+            <input type="checkbox" name="Close" value="close">
+            </div>
+            </div>
+
+            <!--br>
             <input type="checkbox" name="Open" value="open">
             <label> Open Price</label><br>
             <input type="checkbox" name="High" value="high">
@@ -54,7 +90,8 @@
             <input type="checkbox" name="Low" value="low">
             <label> Low Price</label><br>
             <input type="checkbox" name="Close" value="close">
-            <label> Close Price</label><br>
+            <label> Close Price</label><br-->
+
               <!--label for="cars">Choose a car:</label>
               <select name="cars" id="cars">
                 <optgroup label="Swedish Cars">
@@ -66,7 +103,7 @@
                   <option value="audi">Audi</option>
                 </optgroup>
               </select-->
-              <input type="submit" value="Submit">
+            <input type="submit" value="Submit">
             </form>
             <!--li><a target="_blank" href="https://www.heroku.com/">Heroku</a></li>
             <li><a target="_blank" href="http://flask.pocoo.org/">Flask</a></li>
