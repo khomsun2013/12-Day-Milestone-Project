@@ -19,6 +19,11 @@ c=conn.cursor()
 def index():
   return render_template('index.html')
 
+@app.after_request
+def after_request(response):
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    return response  
+
 @app.route('/nasdaq')
 def nasdaq():
   c.execute('SELECT symbol,name FROM NASDAQ')
