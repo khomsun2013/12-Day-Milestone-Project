@@ -55,7 +55,7 @@ def stock():
     if (request.method == 'POST'):
       sel=[0]*4
       dst = request.form.to_dict()
-      print(dst)
+      return render_template("about.html", content=dst)
       if('Open' in dst): sel[0]=1
       if('High' in dst): sel[1]=1 
       if('Low' in dst): sel[2]=1
