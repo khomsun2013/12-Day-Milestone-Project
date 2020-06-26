@@ -43,10 +43,10 @@ def about():
 
 @app.route('/stock',methods=['GET','POST'])
 def stock():
+  sel=[0]*4
   try:
     if (request.method == 'POST'):
       dst = request.form.to_dict()
-      sel=[0]*4
       if('Open'in dst): sel[0]=1
       if('High'in dst): sel[1]=1 
       if('Low'in dst): sel[2]=1
