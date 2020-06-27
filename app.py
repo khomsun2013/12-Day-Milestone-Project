@@ -93,7 +93,7 @@ def stock():
       pdic=pdic.T
       x=range(1,31)
       pd30 = pdic.head(30)
-      output_file('./templates/stocks.html')
+      output_file('/templates/stocks.html')
       #output_file('templates/'+dst['stocks']+'.html',mode='inline')
       p2 = figure(title='Stock Prices '+stocks+str(iopen)+str(ihigh)+str(ilow)+str(iclose)+' Back in 30 Days', x_axis_label='Date',y_axis_label='Price')
       grpo=['Open']*30
@@ -171,7 +171,7 @@ def stock():
       '''
       hover = HoverTool(tooltips =[('Type: ','@group'),('Date: ','@date'),('Price: ','@y')])
       p2.add_tools(hover)
-      #show(p2)
+      show(p2)
       #return 
       save(p2)
       return render_template('stocks.html')
