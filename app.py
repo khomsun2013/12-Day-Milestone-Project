@@ -7,6 +7,7 @@ from bokeh.layouts import column
 from bokeh.plotting import figure
 from bokeh.models import ColumnDataSource, HoverTool, CustomJS
 from bokeh.models.widgets import Button
+import os
 
 import sqlite3
 
@@ -53,6 +54,10 @@ def about():
 def stock():
   try:
     if (request.method == 'POST'):
+      if os.path.exists("templates/stocks.html"):
+        os.remove("templates/stocks.html")
+      else:
+        print("The file does not exist")
       sel=[0,0,0,0]
       dst = request.form.to_dict()
       if('Open' in dst): sel[0]=1
@@ -69,7 +74,7 @@ def stock():
       pdic=pdic.T
       x=range(1,31)
       pd30 = pdic.head(30)
-      output_file('templates/stocks.html',mode='inline')
+      output_file('templates/stocks.html')
       #output_file('templates/'+dst['stocks']+'.html',mode='inline')
       p2 = figure(title='Stock Prices '+dst['stocks']+' Back in 30 Days', x_axis_label='Date',y_axis_label='Price')
       grpo=['Open']*30
