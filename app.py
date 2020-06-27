@@ -84,7 +84,7 @@ def stock():
       if sum(sel)==0:
         return render_template('index.html')
       '''
-      r = requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+stocks+'&outputsize=full&apikey=HGGFPH8DG45PWMAB')
+      r = requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+stocks+'&outputsize=compact&apikey=HGGFPH8DG45PWMAB')
       data = r.json()
       dic = data['Time Series (Daily)']
       pdic=pd.DataFrame(dic)
