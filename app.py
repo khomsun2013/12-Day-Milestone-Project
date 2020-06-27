@@ -56,14 +56,14 @@ def stock():
     if (request.method == 'POST'):
       default_name = 'AAPL'
       default_value = 0
-      stocks = str(request.form.get('stocks', default_name))
-      iopen = int(request.form.get('Open', default_value))
-      ihigh = int(request.form.get('High', default_value))
-      ilow = int(request.form.get('Low', default_value))
-      iclose = int(request.form.get('Close', default_value))
+      stocks = request.values.get("stocks",default_name) 
+      iopen = int(request.values.get('Open', default_value))
+      ihigh = int(request.values.get('High', default_value))
+      ilow = int(request.values.get('Low', default_value))
+      iclose = int(request.values.get('Close', default_value))
+      return render_template("about.html", content=stocks,content1=[iopen,ihigh,ilow,iclose])
       if (iopen+ihigh+ilow+iclose)==0:
         return render_template('index.html')
-      #return render_template("about.html", content=stocks,content1=[iopen,ihigh,ilow,iclose])
       #if os.path.exists("templates/stocks.html"):
       #  os.remove("templates/stocks.html")
       #else:
@@ -222,7 +222,7 @@ def stock():
   '''
 
 if __name__ == '__main__':
-  app.run(port=33507)
-  #app.run(debug='True')
+  #app.run(port=33507)
+  app.run(debug='True')
 '''
 '''      
