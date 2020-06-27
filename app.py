@@ -54,44 +54,89 @@ def about():
 def stock():
   try:
     if (request.method == 'POST'):
-      if os.path.exists("templates/stocks.html"):
-        os.remove("templates/stocks.html")
-      else:
-        print("The file does not exist")
+      default_name = 'AAPL'
+      default_value = 0
+      stocks = request.form.get('stocks', default_name)
+      iopen = int(request.form.get('Open', default_value))
+      ihigh = int(request.form.get('High', default_value))
+      ilow = int(request.form.get('Low', default_value))
+      iclose = int(request.form.get('Close', default_value))
+      if (iopen+ihigh+ilow+iclose)==0:
+        return render_template('index.html')
+      #return render_template("about.html", content=stocks,content1=[iopen,ihigh,ilow,iclose])
+      #if os.path.exists("templates/stocks.html"):
+      #  os.remove("templates/stocks.html")
+      #else:
+      #  print("The file does not exist")
+      
+      '''
       sel=[0,0,0,0]
       dst = request.form.to_dict()
       if('Open' in dst): sel[0]=1
       if('High' in dst): sel[1]=2 
       if('Low' in dst): sel[2]=3
       if('Close' in dst): sel[3]=4
-      #return render_template("about.html", content=dst,content1=sel)
       if sum(sel)==0:
         return render_template('index.html')
-      r = requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+dst['stocks']+'&outputsize=full&apikey=HGGFPH8DG45PWMAB')
+      '''
+      r = requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+stocks+'&outputsize=full&apikey=HGGFPH8DG45PWMAB')
       data = r.json()
       dic = data['Time Series (Daily)']
       pdic=pd.DataFrame(dic)
       pdic=pdic.T
       x=range(1,31)
       pd30 = pdic.head(30)
-      output_file('templates/stocks.html')
+      output_file('./templates/stocks.html')
       #output_file('templates/'+dst['stocks']+'.html',mode='inline')
-      p2 = figure(title='Stock Prices '+dst['stocks']+' Back in 30 Days', x_axis_label='Date',y_axis_label='Price')
+      p2 = figure(title='Stock Prices '+stocks+' Back in 30 Days', x_axis_label='Date',y_axis_label='Price')
       grpo=['Open']*30
       grph=['High']*30
       grpl=['Low']*30
       grpc=['Close']*30
       grp_list=['Open','High','Low','Close']
       colors=['green','orange','blue','red']
+      if(iopen==1):
+        source = ColumnDataSource(
+        data={'x':x,
+              'date':list(pd30.index.values),
+              'group':grpo,
+              'y':list(pd30['1. open'].values)})
+        p2.line(x='x',y='y',source=source,legend_label = grp_list[0],color = colors[0])
+        p2.circle(x='x', y='y', fill_color=colors[0],line_color=colors[0], size=8,source=source,legend_label = grp_list[0])
+      if(ihigh==2):
+        source = ColumnDataSource(
+        data={'x':x,
+              'date':list(pd30.index.values),
+              'group':grph,
+              'y':list(pd30['2. high'].values)})
+        p2.line(x='x',y='y',source=source,legend_label = grp_list[1],color = colors[1])
+        p2.circle(x='x', y='y', fill_color=colors[1],line_color=colors[1], size=8,source=source,legend_label = grp_list[1])
+      if(ilow==3):
+        source = ColumnDataSource(
+        data={'x':x,
+              'date':list(pd30.index.values),
+              'group':grpl,
+              'y':list(pd30['3. low'].values)})
+        p2.line(x='x',y='y',source=source,legend_label = grp_list[2],color = colors[2])
+        p2.circle(x='x', y='y', fill_color=colors[2],line_color=colors[2], size=8,source=source,legend_label = grp_list[2])
+      if(iclose==4):
+        source = ColumnDataSource(
+        data={'x':x,
+              'date':list(pd30.index.values),
+              'group':grpc,
+              'y':list(pd30['4. close'].values)})
+        p2.line(x='x',y='y',source=source,legend_label = grp_list[3],color = colors[3])
+        p2.circle(x='x', y='y', fill_color=colors[3],line_color=colors[3], size=8,source=source,legend_label = grp_list[3])
+      '''
       for i in range(len(sel)):
         if(sel[i]==1):
-          source1 = ColumnDataSource(
+          source = ColumnDataSource(
           data={'x':x,
                 'date':list(pd30.index.values),
                 'group':grpo,
                 'y':list(pd30['1. open'].values)})
-          p2.line(x='x',y='y',source=source1,legend_label = grp_list[i],color = colors[i])
-          p2.circle(x='x', y='y', fill_color=colors[i],line_color=colors[i], size=8,source=source1,legend_label = grp_list[i])
+          p2.line(x='x',y='y',source=source,legend_label = grp_list[i],color = colors[i])
+          p2.circle(x='x', y='y', fill_color=colors[i],line_color=colors[i], size=8,source=source,legend_label = grp_list[i])
         if(sel[i]==2):
           source2= ColumnDataSource(
           data={'x':x,
@@ -116,9 +161,11 @@ def stock():
                 'y':list(pd30['4. close'].values)})
           p2.line(x='x',y='y',source=source4,legend_label = grp_list[i],color = colors[i])
           p2.circle(x='x', y='y', fill_color=colors[i],line_color=colors[i], size=8,source=source4,legend_label = grp_list[i])
+      '''
       hover = HoverTool(tooltips =[('Type: ','@group'),('Date: ','@date'),('Price: ','@y')])
       p2.add_tools(hover)
-      #show(p2) 
+      #show(p2)
+      #return 
       save(p2)
       return render_template('stocks.html')
 
