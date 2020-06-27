@@ -69,10 +69,10 @@ def stock():
       #return render_template("about.html", content=stocks,content1=[iopen,ihigh,ilow,iclose])
       if (iopen+ihigh+ilow+iclose)==0:
         return render_template('index.html')
-      #if os.path.exists("templates/stocks.html"):
-      #  os.remove("templates/stocks.html")
-      #else:
-      #  print("The file does not exist")
+      if os.path.exists("./templates/stocks.html"):
+        os.remove("./templates/stocks.html")
+      else:
+        print("The file does not exist")
       
       '''
       sel=[0,0,0,0]
@@ -169,7 +169,7 @@ def stock():
       '''
       hover = HoverTool(tooltips =[('Type: ','@group'),('Date: ','@date'),('Price: ','@y')])
       p2.add_tools(hover)
-      show(p2)
+      #show(p2)
       #return 
       save(p2)
       return render_template('stocks.html')
