@@ -7,25 +7,6 @@
     <meta name="author" content="@gotoariel">
     <title>12-Day Project</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <!--script type = "text/javascript"> 
-         var db = openDatabase('./Companylist.db', '1.0', 'TestDB', 2 * 1024 * 1024);
-         var msg;
-         db.transaction(function (tx) {
-         tx.executeSql('SELECT * FROM NASDAQ', [], function (tx, results) {
-         var len = results.rows.length, i;
-         for (i = 0; i < len; i++) {
-             alert(results.rows.item(i).text);
-         }
-         });
-         });
-       -->
-<script type = "text/javascript">        
-var elements = document.getElementsByTagName("INPUT");
-for (var inp of elements) {
-    if (inp.type === "checkbox")
-        inp.checked = false;
-}
-</script>
   </head>
   <body>
     <div class="container">
@@ -49,24 +30,8 @@ for (var inp of elements) {
             <label for="Low"> Low Price</label><br>
             <input type="checkbox" name="Close" value="4" checked>
             <label for="Close"> Close Price</label><br>
-              <!--label for="cars">Choose a car:</label>
-              <select name="cars" id="cars">
-                <optgroup label="Swedish Cars">
-                  <option value="volvo">Volvo</option>
-                  <option value="saab">Saab</option>
-                </optgroup>
-                <optgroup label="German Cars">
-                  <option value="mercedes">Mercedes</option>
-                  <option value="audi">Audi</option>
-                </optgroup>
-              </select-->
             <input type="submit" value="Submit">
             </form>
-
-            <!--li><a target="_blank" href="https://www.heroku.com/">Heroku</a></li>
-            <li><a target="_blank" href="http://flask.pocoo.org/">Flask</a></li>
-            <li><a target="_blank" href="http://jinja.pocoo.org/docs/2.9/">Jinja2</a></li>
-            <li><a target="_blank" href="http://getbootstrap.com/">Bootstrap</a></li-->
           </ul>
         </div>
       </div>
