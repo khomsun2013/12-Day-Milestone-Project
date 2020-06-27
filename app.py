@@ -55,11 +55,11 @@ def stock():
     if (request.method == 'POST'):
       sel=[0]*4
       dst = request.form.to_dict()
-      return render_template("about.html", content=dst)
       if('Open' in dst): sel[0]=1
       if('High' in dst): sel[1]=1 
       if('Low' in dst): sel[2]=1
       if('Close' in dst): sel[3]=1
+      return render_template("about.html", content=dst,content1=sel)
       if sum(sel)==0:
         return render_template('index.html')
       r = requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+dst['stocks']+'&outputsize=full&apikey=HGGFPH8DG45PWMAB')
