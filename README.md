@@ -1,6 +1,4 @@
-# 12-Day-Milestone-Project
-
-12-Day Milestone Project
+#12-Day Milestone Project
 By Khomsun Singhirunnusorn
 
 
