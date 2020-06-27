@@ -88,7 +88,7 @@ def stock():
       pd30 = pdic.head(30)
       output_file('./templates/stocks.html')
       #output_file('templates/'+dst['stocks']+'.html',mode='inline')
-      p2 = figure(title='Stock Prices '+stocks+' Back in 30 Days', x_axis_label='Date',y_axis_label='Price')
+      p2 = figure(title='Stock Prices '+stocks+str(iopen)+str(ihigh)+str(ilow)+str(iclose)+' Back in 30 Days', x_axis_label='Date',y_axis_label='Price')
       grpo=['Open']*30
       grph=['High']*30
       grpl=['Low']*30
