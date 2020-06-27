@@ -115,6 +115,7 @@ def stock():
           pass  
       hover = HoverTool(tooltips =[('Type: ','@group'),('Date: ','@date'),('Price: ','@y')])
       p2.add_tools(hover)
+      show(p2) 
       save(p2)
 
       '''
