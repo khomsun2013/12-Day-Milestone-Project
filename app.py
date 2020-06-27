@@ -80,37 +80,37 @@ def stock():
       colors=['green','orange','blue','red']
       for i in range(len(sel)):
         if(sel[i]==1):
-          source = ColumnDataSource(
+          source1 = ColumnDataSource(
           data={'x':x,
                 'date':list(pd30.index.values),
                 'group':grpo,
                 'y':list(pd30['1. open'].values)})
-          p2.line(x='x',y='y',source=source,legend_label = grp_list[i],color = colors[i])
-          p2.circle(x='x', y='y', fill_color=colors[i],line_color=colors[i], size=8,source=source,legend_label = grp_list[i])
+          p2.line(x='x',y='y',source=source1,legend_label = grp_list[i],color = colors[i])
+          p2.circle(x='x', y='y', fill_color=colors[i],line_color=colors[i], size=8,source=source1,legend_label = grp_list[i])
         if(sel[i]==2):
-          source = ColumnDataSource(
+          source2= ColumnDataSource(
           data={'x':x,
                 'date':list(pd30.index.values),
                 'group':grph,
                 'y':list(pd30['2. high'].values)})
-          p2.line(x='x',y='y',source=source,legend_label = grp_list[i],color = colors[i])
-          p2.circle(x='x', y='y', fill_color=colors[i],line_color=colors[i], size=8,source=source,legend_label = grp_list[i])
+          p2.line(x='x',y='y',source=source2,legend_label = grp_list[i],color = colors[i])
+          p2.circle(x='x', y='y', fill_color=colors[i],line_color=colors[i], size=8,source=source2,legend_label = grp_list[i])
         if(sel[i]==3):
-          source = ColumnDataSource(
+          source3 = ColumnDataSource(
           data={'x':x,
                 'date':list(pd30.index.values),
                 'group':grpl,
                 'y':list(pd30['3. low'].values)})
-          p2.line(x='x',y='y',source=source,legend_label = grp_list[i],color = colors[i])
-          p2.circle(x='x', y='y', fill_color=colors[i],line_color=colors[i], size=8,source=source,legend_label = grp_list[i])
+          p2.line(x='x',y='y',source=source3,legend_label = grp_list[i],color = colors[i])
+          p2.circle(x='x', y='y', fill_color=colors[i],line_color=colors[i], size=8,source=source3,legend_label = grp_list[i])
         if(sel[i]==4):
-          source = ColumnDataSource(
+          source4 = ColumnDataSource(
           data={'x':x,
                 'date':list(pd30.index.values),
                 'group':grpc,
                 'y':list(pd30['4. close'].values)})
-          p2.line(x='x',y='y',source=source,legend_label = grp_list[i],color = colors[i])
-          p2.circle(x='x', y='y', fill_color=colors[i],line_color=colors[i], size=8,source=source,legend_label = grp_list[i])
+          p2.line(x='x',y='y',source=source4,legend_label = grp_list[i],color = colors[i])
+          p2.circle(x='x', y='y', fill_color=colors[i],line_color=colors[i], size=8,source=source4,legend_label = grp_list[i])
       hover = HoverTool(tooltips =[('Type: ','@group'),('Date: ','@date'),('Price: ','@y')])
       p2.add_tools(hover)
       #show(p2) 
