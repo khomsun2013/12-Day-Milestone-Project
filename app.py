@@ -53,7 +53,7 @@ def about():
 @app.route('/stock',methods=['GET','POST'])
 def stock():
   try:
-    if (request.method == 'POST'):
+    if (request.method == 'GET'):
       default_name = 'AAPL'
       default_value = 0
       stocks = request.values.get("stocks",default_name) 
