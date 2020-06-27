@@ -56,14 +56,14 @@ def stock():
     if (request.method == 'POST'):
       default_name = 'AAPL'
       default_value = 0
-      stocks = request.form.get('stocks', default_name)
+      stocks = str(request.form.get('stocks', default_name))
       iopen = int(request.form.get('Open', default_value))
       ihigh = int(request.form.get('High', default_value))
       ilow = int(request.form.get('Low', default_value))
       iclose = int(request.form.get('Close', default_value))
       if (iopen+ihigh+ilow+iclose)==0:
         return render_template('index.html')
-      #return render_template("about.html", content=stocks,content1=[iopen,ihigh,ilow,iclose])
+      return render_template("about.html", content=stocks,content1=[iopen,ihigh,ilow,iclose])
       #if os.path.exists("templates/stocks.html"):
       #  os.remove("templates/stocks.html")
       #else:
@@ -168,69 +168,9 @@ def stock():
       #return 
       save(p2)
       return render_template('stocks.html')
-
-      '''
-      btn = Button(label="Back", button_type="success")
-      btn.on_click(change_click)
-      curdoc().add_root(bt)
-      layout = column(p2,btn)
-      save(layout)
-      '''
-      
-      '''
-      tod = datetime.datetime.now()
-      sdate=[]
-      sopen=[]
-      shigh=[]
-      slow=[]
-      sclose=[]
-      svol=[] 
-      for i in range(1,30):
-        d = datetime.timedelta(days = i)
-        a = tod - d
-        dt = str(a.date())
-        if dt in dic:
-          sdate.append(dt)
-          sopen.append(float(dic[dt]['1. open']))
-          shigh.append(float(dic[dt]['2. high']))
-          slow.append(float(dic[dt]['3. low']))
-          sclose.append(float(dic[dt]['4. close']))
-          svol.append(float(dic[dt]['5. volume']))
-      x=[i+1 for i in range(len(sdate))]
-      source_open = ColumnDataSource(data=dict(
-          date=x,
-          open=sopen,
-          close=sclose,
-          sdate=sdate,
-      ))
-      output_file('templates/'+dst['stocks']+'.html',mode='inline')
-      #plot = figure(title='Stock IBM Daily', x_axis_label='Date',
-      #                y_axis_label='Price',x_range=sdate)
-      #plot.circle(sdate, sopen, fill_color="green",line_color='green', size=8)
-      plot = figure(title='Stock '+dst['stocks']+' Back in 30 Days', x_axis_label='Date',y_axis_label='Price')
-      plot.line('date', 'open', line_width=2, line_color='green', legend_label='Open', source=source_open)
-      plot.circle('date', 'open', fill_color="green",line_color='green', size=8,source=source_open)
-      plot.line('date', 'close', line_width=2, line_color='red', legend_label='Close', source=source_open)
-      plot.circle('date', 'close', fill_color="red",line_color='red', size=8,source=source_open)
-      #plot.line('date', sopen, line_width=3, line_color='green', legend_label='Open')
-      #plot.line(x, shigh, line_width=3, line_color='orange', legend_label='High')
-      #plot.line(x, slow, line_width=3, line_color='red', legend_label='Low')
-      #plot.line(x, sclose, line_width=3, line_color='blue', legend_label='Close')
-      
-      #hover = HoverTool()
-      #hover.tooltips = """
-      #<div style=padding=5px>DATE:@sdate</div>
-      #<div style=padding=5px>OPEN:@open</div>
-      #"""
-      #plot.add_tools(hover)
-      #show(plot) 
-      plot.add_tools(HoverTool(show_arrow=False,tooltips=[("DATE", "@sdate"), ("OPEN", "@open"), ("CLOSE", "@close")]))
-      save(plot)
-      '''
-      #return render_template(dst['stocks']+'.html')
-      #return render_template('stocks.html')
   except Exception as e:
-      flash(e)
+      print(e)
+      #flash(e)
       return render_template('index.html')
   '''
   plt.figure()#figsize=(9, 3))
