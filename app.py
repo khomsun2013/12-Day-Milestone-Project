@@ -69,10 +69,10 @@ def stock():
       #return render_template("about.html", content=stocks,content1=[iopen,ihigh,ilow,iclose])
       if (iopen+ihigh+ilow+iclose)==0:
         return render_template('index.html')
-      if os.path.exists("./templates/stocks.html"):
-        os.remove("./templates/stocks.html")
-      else:
-        print("The file does not exist")
+      #if os.path.exists("./templates/stocks.html"):
+      #  os.remove("./templates/stocks.html")
+      #else:
+      #  print("The file does not exist")
       
       '''
       sel=[0,0,0,0]
@@ -91,8 +91,8 @@ def stock():
       pdic=pdic.T
       x=range(1,31)
       pd30 = pdic.head(30)
-      output_file('./templates/stocks.html')
-      #output_file('templates/'+dst['stocks']+'.html',mode='inline')
+      #output_file('./templates/stocks.html')
+      output_file('./templates/'+stocks+str(iopen)+str(ihigh)+str(ilow)+str(iclose)+'.html',mode='inline')
       p2 = figure(title='Stock Prices '+stocks+str(iopen)+str(ihigh)+str(ilow)+str(iclose)+' Back in 30 Days', x_axis_label='Date',y_axis_label='Price')
       grpo=['Open']*30
       grph=['High']*30
@@ -172,7 +172,7 @@ def stock():
       #show(p2)
       #return 
       save(p2)
-      return render_template('stocks.html')
+      return render_template(stocks+str(iopen)+str(ihigh)+str(ilow)+str(iclose)+'.html')
   except Exception as e:
       print(e)
       #flash(e)
