@@ -56,9 +56,9 @@ def stock():
       sel=[0]*4
       dst = request.form.to_dict()
       if('Open' in dst): sel[0]=1
-      if('High' in dst): sel[1]=1 
-      if('Low' in dst): sel[2]=1
-      if('Close' in dst): sel[3]=1
+      if('High' in dst): sel[1]=2 
+      if('Low' in dst): sel[2]=3
+      if('Close' in dst): sel[3]=4
       #return render_template("about.html", content=dst,content1=sel)
       if sum(sel)==0:
         return render_template('index.html')
@@ -79,33 +79,40 @@ def stock():
       grp_list=['Open','High','Low','Close']
       colors=['green','orange','blue','red']
       for i in range(4):
-        if(i==0)and(sel[i]==1):
+        if(sel[i]==1):
           source = ColumnDataSource(
           data={'x':x,
                 'date':list(pd30.index.values),
                 'group':grpo,
                 'y':list(pd30['1. open'].values)})
-        elif(i==1)and(sel[i]==1):
+          p2.line(x='x',y='y',source=source,legend_label = grp_list[i],color = colors[i])
+          p2.circle(x='x', y='y', fill_color=colors[i],line_color=colors[i], size=8,source=source,legend_label = grp_list[i])
+        elif(sel[i]==2):
           source = ColumnDataSource(
           data={'x':x,
                 'date':list(pd30.index.values),
                 'group':grph,
                 'y':list(pd30['2. high'].values)})
-        elif(i==2)and(sel[i]==1):
+          p2.line(x='x',y='y',source=source,legend_label = grp_list[i],color = colors[i])
+          p2.circle(x='x', y='y', fill_color=colors[i],line_color=colors[i], size=8,source=source,legend_label = grp_list[i])
+        elif(sel[i]==3):
           source = ColumnDataSource(
           data={'x':x,
                 'date':list(pd30.index.values),
                 'group':grpl,
                 'y':list(pd30['3. low'].values)})
-        elif(i==3)and(sel[i]==1):
+          p2.line(x='x',y='y',source=source,legend_label = grp_list[i],color = colors[i])
+          p2.circle(x='x', y='y', fill_color=colors[i],line_color=colors[i], size=8,source=source,legend_label = grp_list[i])
+        elif(sel[i]==4):
           source = ColumnDataSource(
           data={'x':x,
                 'date':list(pd30.index.values),
                 'group':grpc,
                 'y':list(pd30['4. close'].values)})
-        if sel[i]==1:  
           p2.line(x='x',y='y',source=source,legend_label = grp_list[i],color = colors[i])
           p2.circle(x='x', y='y', fill_color=colors[i],line_color=colors[i], size=8,source=source,legend_label = grp_list[i])
+        else:
+          pass  
       hover = HoverTool(tooltips =[('Type: ','@group'),('Date: ','@date'),('Price: ','@y')])
       p2.add_tools(hover)
       save(p2)
