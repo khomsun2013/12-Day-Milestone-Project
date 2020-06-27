@@ -61,7 +61,7 @@ def stock():
       ihigh = int(request.values.get('High', default_value))
       ilow = int(request.values.get('Low', default_value))
       iclose = int(request.values.get('Close', default_value))
-      return render_template("about.html", content=stocks,content1=[iopen,ihigh,ilow,iclose])
+      #return render_template("about.html", content=stocks,content1=[iopen,ihigh,ilow,iclose])
       if (iopen+ihigh+ilow+iclose)==0:
         return render_template('index.html')
       #if os.path.exists("templates/stocks.html"):
