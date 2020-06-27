@@ -63,7 +63,7 @@ def stock():
       iclose = int(request.form.get('Close', default_value))
       if (iopen+ihigh+ilow+iclose)==0:
         return render_template('index.html')
-      return render_template("about.html", content=stocks,content1=[iopen,ihigh,ilow,iclose])
+      #return render_template("about.html", content=stocks,content1=[iopen,ihigh,ilow,iclose])
       #if os.path.exists("templates/stocks.html"):
       #  os.remove("templates/stocks.html")
       #else:
