@@ -59,7 +59,7 @@ def stock():
       if('High' in dst): sel[1]=1 
       if('Low' in dst): sel[2]=1
       if('Close' in dst): sel[3]=1
-      return render_template("about.html", content=dst,content1=sel)
+      #return render_template("about.html", content=dst,content1=sel)
       if sum(sel)==0:
         return render_template('index.html')
       r = requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+dst['stocks']+'&outputsize=full&apikey=HGGFPH8DG45PWMAB')
@@ -79,25 +79,25 @@ def stock():
       grp_list=['Open','High','Low','Close']
       colors=['green','orange','blue','red']
       for i in range(4):
-        if(i==0)and(sel[0]==1):
+        if(i==0)and(sel[i]==1):
           source = ColumnDataSource(
           data={'x':x,
                 'date':list(pd30.index.values),
                 'group':grpo,
                 'y':list(pd30['1. open'].values)})
-        elif(i==1)and(sel[1]==1):
+        elif(i==1)and(sel[i]==1):
           source = ColumnDataSource(
           data={'x':x,
                 'date':list(pd30.index.values),
                 'group':grph,
                 'y':list(pd30['2. high'].values)})
-        elif(i==2)and(sel[2]==1):
+        elif(i==2)and(sel[i]==1):
           source = ColumnDataSource(
           data={'x':x,
                 'date':list(pd30.index.values),
                 'group':grpl,
                 'y':list(pd30['3. low'].values)})
-        elif(i==3)and(sel[3]==1):
+        elif(i==3)and(sel[i]==1):
           source = ColumnDataSource(
           data={'x':x,
                 'date':list(pd30.index.values),
