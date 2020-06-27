@@ -53,19 +53,19 @@ def about():
 @app.route('/stock',methods=['GET','POST'])
 def stock():
   try:
-    if (request.method == 'GET'):
+    if (request.method == 'POST'):
       default_name = 'AAPL'
       default_value = 0
-      stocks = request.args.get("stocks",default_name) 
-      iopen = int(request.args.get('Open', default_value))
-      ihigh = int(request.args.get('High', default_value))
-      ilow = int(request.args.get('Low', default_value))
-      iclose = int(request.args.get('Close', default_value))
-      #stocks = request.values.get("stocks",default_name) 
-      #iopen = int(request.values.get('Open', default_value))
-      #ihigh = int(request.values.get('High', default_value))
-      #ilow = int(request.values.get('Low', default_value))
-      #iclose = int(request.values.get('Close', default_value))
+      #stocks = request.args.get("stocks",default_name) 
+      #iopen = int(request.args.get('Open', default_value))
+      #ihigh = int(request.args.get('High', default_value))
+      #ilow = int(request.args.get('Low', default_value))
+      #iclose = int(request.args.get('Close', default_value))
+      stocks = request.values.get("stocks",default_name) 
+      iopen = int(request.values.get('Open', default_value))
+      ihigh = int(request.values.get('High', default_value))
+      ilow = int(request.values.get('Low', default_value))
+      iclose = int(request.values.get('Close', default_value))
       #return render_template("about.html", content=stocks,content1=[iopen,ihigh,ilow,iclose])
       if (iopen+ihigh+ilow+iclose)==0:
         return render_template('index.html')

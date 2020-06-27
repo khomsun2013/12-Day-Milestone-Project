@@ -33,7 +33,7 @@ for (var inp of elements) {
         <div class="col-lg-12 text-left">
           <h2>NASDAQ STOCKS</h2>
           <ul>
-            <form action="/stock" method="GET">
+            <form action="/stock" method="POST">
             <label for ="stock ticker">Choose a Company Name: </label>
             <select name="stocks" id="stocks">
               {% for item in data %}
