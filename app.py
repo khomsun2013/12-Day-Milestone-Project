@@ -53,7 +53,7 @@ def about():
 def stock():
   try:
     if (request.method == 'POST'):
-      sel=[0]*4
+      sel=[0,0,0,0]
       dst = request.form.to_dict()
       if('Open' in dst): sel[0]=1
       if('High' in dst): sel[1]=2 
@@ -78,7 +78,7 @@ def stock():
       grpc=['Close']*30
       grp_list=['Open','High','Low','Close']
       colors=['green','orange','blue','red']
-      for i in range(4):
+      for i in range(len(sel)):
         if(sel[i]==1):
           source = ColumnDataSource(
           data={'x':x,
@@ -87,7 +87,7 @@ def stock():
                 'y':list(pd30['1. open'].values)})
           p2.line(x='x',y='y',source=source,legend_label = grp_list[i],color = colors[i])
           p2.circle(x='x', y='y', fill_color=colors[i],line_color=colors[i], size=8,source=source,legend_label = grp_list[i])
-        elif(sel[i]==2):
+        if(sel[i]==2):
           source = ColumnDataSource(
           data={'x':x,
                 'date':list(pd30.index.values),
@@ -95,7 +95,7 @@ def stock():
                 'y':list(pd30['2. high'].values)})
           p2.line(x='x',y='y',source=source,legend_label = grp_list[i],color = colors[i])
           p2.circle(x='x', y='y', fill_color=colors[i],line_color=colors[i], size=8,source=source,legend_label = grp_list[i])
-        elif(sel[i]==3):
+        if(sel[i]==3):
           source = ColumnDataSource(
           data={'x':x,
                 'date':list(pd30.index.values),
@@ -103,7 +103,7 @@ def stock():
                 'y':list(pd30['3. low'].values)})
           p2.line(x='x',y='y',source=source,legend_label = grp_list[i],color = colors[i])
           p2.circle(x='x', y='y', fill_color=colors[i],line_color=colors[i], size=8,source=source,legend_label = grp_list[i])
-        elif(sel[i]==4):
+        if(sel[i]==4):
           source = ColumnDataSource(
           data={'x':x,
                 'date':list(pd30.index.values),
@@ -111,12 +111,11 @@ def stock():
                 'y':list(pd30['4. close'].values)})
           p2.line(x='x',y='y',source=source,legend_label = grp_list[i],color = colors[i])
           p2.circle(x='x', y='y', fill_color=colors[i],line_color=colors[i], size=8,source=source,legend_label = grp_list[i])
-        else:
-          pass  
       hover = HoverTool(tooltips =[('Type: ','@group'),('Date: ','@date'),('Price: ','@y')])
       p2.add_tools(hover)
-      show(p2) 
+      #show(p2) 
       save(p2)
+      return render_template('stocks.html')
 
       '''
       btn = Button(label="Back", button_type="success")
@@ -177,7 +176,7 @@ def stock():
       save(plot)
       '''
       #return render_template(dst['stocks']+'.html')
-      return render_template('stocks.html')
+      #return render_template('stocks.html')
   except Exception as e:
       flash(e)
       return render_template('index.html')
